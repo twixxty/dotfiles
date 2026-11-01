@@ -9,4 +9,6 @@ IM=$(command -v magick || command -v convert)
   -colorspace sRGB -resize '2560x1440>' -blur 0x20 \
   -fill black -colorize 40% "$out"
 
-sudo /usr/local/bin/matugen-lightdm-install
+if [ -x /usr/local/bin/matugen-lightdm-install ]; then
+  sudo -n /usr/local/bin/matugen-lightdm-install 2>/dev/null || true
+fi

@@ -147,3 +147,8 @@ output_path = '~/.config/formalmusic/theme.json'
 input_path = '~/.config/matugen/templates/vyom.css'
 output_path = '~/.config/vyom/matugen.css'
 post_hook = 'vyom reload 2>/dev/null || true'
+
+[templates.papirus]
+input_path = './templates/colors-papirus.txt'
+output_path = '~/.config/matugen/papirus-folders/colors-papirus.txt'
+post_hook = '~/.config/matugen/papirus-folders/change-icons.sh'
