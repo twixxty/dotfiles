@@ -93,9 +93,4 @@ done
 
 # En yakın rengin ismini ekrana yazdır
 echo $closest_color is the closest color
-# Update icon theme using papirus-folders if available
-if command -v papirus-folders >/dev/null 2>&1; then
-    papirus-folders -C "$closest_color" -t Papirus-Dark
-elif [ -x "$HOME/.local/share/icons/papirus-folders.sh" ]; then
-    "$HOME/.local/share/icons/papirus-folders.sh" -C "$closest_color" -t "$HOME/.local/share/icons/Papirus-Dark"
-fi
+papirus-folders -C "$closest_color" -t Papirus-Dark
