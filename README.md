@@ -1,6 +1,6 @@
 # twixxty's dotfiles
 
-> ricing setups nobody asked for
+![screenshot](screenshot.png)
 
 running on fedora linux with niri (if it doesn't work on your machine that's your problem)
 
