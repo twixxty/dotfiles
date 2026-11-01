@@ -1,0 +1,26 @@
+[Default Applications]
+x-scheme-handler/discord=vesktop.desktop
+x-scheme-handler/http=helium.desktop
+x-scheme-handler/https=helium.desktop
+x-scheme-handler/chrome=zen-browser.desktop
+text/html=helium.desktop
+application/x-extension-htm=zen-browser.desktop
+application/x-extension-html=zen-browser.desktop
+application/x-extension-shtml=zen-browser.desktop
+application/xhtml+xml=zen-browser.desktop
+application/x-extension-xhtml=zen-browser.desktop
+application/x-extension-xht=zen-browser.desktop
+application/json=org.gnome.gedit.desktop
+application/toml=org.gnome.TextEditor.desktop
+text/plain=org.gnome.TextEditor.desktop
+x-scheme-handler/about=helium.desktop
+x-scheme-handler/unknown=helium.desktop
+x-scheme-handler/beeper=Beeper.desktop
+
+[Added Associations]
+application/json=org.gnome.gedit.desktop;
+x-scheme-handler/http=zen-browser.desktop;
+x-scheme-handler/https=zen-browser.desktop;
+x-scheme-handler/chrome=zen-browser.desktop;
+application/toml=org.gnome.TextEditor.desktop;
+text/plain=org.gnome.TextEditor.desktop;

@@ -1,0 +1,148 @@
+
+    # ==============================================================================
+    # Vyom Core Settings
+    # ==============================================================================
+    [vyom]
+    # Plugins that should NOT be loaded even if installed in plugins/
+    # Example: disabled = ["raga", "ganit"]
+    disabled = []
+    
+    # Tab / Shift+Tab cycling order between search-based tools (list/grid layouts).
+    # Default: all installed tools in filesystem discovery order.
+    cycle = ["suchana"]
+    
+    # Default dimensions for centered search/list panels (in pixels before scale):
+    # (Note: kendra uses its own card dimensions anchored to the screen corner)
+    width = 900
+    height = 520
+    
+    # UI scale factor applied to width, height, and font metrics (default: 1.25)
+    # Panel size is automatically capped at 90% of your screen geometry.
+    scale = 1.25
+    
+    # Panel background opacity (range: 0.3 to 1.0; default: 0.72)
+    # Lower values let more of the compositor's blur/glass show through.
+    opacity = 0.72
+    
+    # Paths to extra CSS stylesheets loaded last (e.g. dynamic color schemes / pywal /
+    varna)
+    # Example: css = ["~/.local/state/varna/vyom.css", "~/.cache/wal/colors.css"]
+    css = []
+    
+    
+    # ==============================================================================
+    # Plugin: Suchana (Notification Center)
+    # ==============================================================================
+    [plugin.suchana]
+    # Optional: Position the panel at a fixed offset from the top edge (in pixels).
+    # If omitted or commented out, the notifications panel is centered on screen.
+    # top = 50
+    
+    # Command to query current Do Not Disturb (DND) state (default: "makoctl mode")
+    dnd_status = "makoctl mode"
+    
+    # Regular expression matched against dnd_status stdout to check if DND is active
+    dnd_on_when = "do-not-disturb"
+    
+    # Commands executed when toggling DND via the panel switch or Ctrl+N
+    dnd_on = "makoctl mode -a do-not-disturb"
+    dnd_off = "makoctl mode -r do-not-disturb"
+    
+    
+    # ==============================================================================
+    # Plugin: Kendra (Control Center / Quick Settings)
+    # ==============================================================================
+    [plugin.kendra]
+    # Distance from the top and right display edges (in pixels)
+    margin_top = 6
+    margin_right = 8
+    
+    # Header button commands (set to "" or remove to hide the button)
+    lock = "hyprlock"         # Lock icon in top right
+    power = "wlogout"         # Power icon in top right (e.g. wlogout, vyom vishram)
+    
+    # The tiles to display and their exact layout order.
+    # Available built-in tiles:
+    #   "wifi", "bluetooth", "hotspot", "dnd", "caffeine", "theme", "wallpaper",
+    "power-profile"
+    # You can also add your own custom tile names here!
+    tiles = [
+      "wifi",
+      "bluetooth",
+      "dnd",
+      "theme",
+      "power-profile",
+      "wallpaper",
+      "caffeine"
+    ]
+    
+    # ------------------------------------------------------------------------------
+    # Built-in Tile Customizations
+    # ------------------------------------------------------------------------------
+    
+    # Wi-Fi Tile
+    [plugin.kendra.tile.wifi]
+    # Command to run on right-click or Shift+Enter (e.g., launch network manager GUI /
+    TUI)
+    open = "kitty -e nmtui"
+    
+    # Bluetooth Tile
+    [plugin.kendra.tile.bluetooth]
+    # Command to run on right-click or Shift+Enter
+    open = "kitty -e bluetoothctl"
+    
+    # Hotspot Tile
+    [plugin.kendra.tile.hotspot]
+    # Custom hotspot script/command (defaults to "vayu-hotspot" if present)
+    command = "vayu-hotspot"
+    
+    # Do Not Disturb Tile
+    [plugin.kendra.tile.dnd]
+    # Right-click opens the notification center
+    open = "vyom suchana"
+    
+    # ------------------------------------------------------------------------------
+    # Custom / Action Tiles
+    # Available colors: "sky", "blue", "teal", "red", "peach", "mauve", "yellow",
+    "green", "rose", "lavender"
+    # ------------------------------------------------------------------------------
+    
+    # Action Tile Example: Triggers your wallpaper picker
+    [plugin.kendra.tile.wallpaper]
+    title = "Wallpaper"
+    icon = "󰸉"
+    color = "yellow"
+    subtitle = "Pick background"
+    run = "qs-bgselector"
+    
+    # Toggle Tile Example: Caffeine / Idle Inhibit
+    [plugin.kendra.tile.caffeine]
+    title = "Caffeine"
+    icon = "󰅶"
+    color = "peach"
+    # Command checking state (exit 0 / prints state)
+    status = "pgrep -x hypridle"
+    # Regex tested against status command output
+    on_when = ".*"
+    # Commands to toggle or turn on/off:
+    toggle = "killall -STOP hypridle || killall -CONT hypridle"
+    subtitle_on = "awake"
+    subtitle_off = "normal"
+    
+    
+    # ==============================================================================
+    # Generic Tool Options (for any other tools you install later)
+    # ==============================================================================
+    
+    # Generic options supported by all centered panels:
+    # [plugin.<name>]
+    # top = 60               # Anchors panel 60px from top instead of centered
+    
+    # [plugin.dvara]         # App Launcher
+    # terminal = "kitty"
+    
+    # [plugin.tarang]        # Wi-Fi Tool
+    # hotspot_command = "vayu-hotspot"
+    
+    # [plugin.urja]          # Battery Tool
+    # limit_file = "~/.local/state/battery-limit/threshold"

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# qs-bgselector-x11 — launcher for running qs-bgselector on X11
+export QT_QPA_PLATFORM="${QT_QPA_PLATFORM:-xcb}"
+
+self="$(readlink -f -- "${BASH_SOURCE[0]}")"
+dir="$(dirname -- "$self")"
+if [ -x "$dir/qs-bgselector" ]; then
+    exec "$dir/qs-bgselector" "$@"
+else
+    exec qs-bgselector "$@"
+fi

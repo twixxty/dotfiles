@@ -1,0 +1,18 @@
+{
+  "colors": {
+    "surface": { "light": "#fff8f7", "dark": "#1a1111" },
+    "surface_container_low": { "light": "#fff0ef", "dark": "#231919" },
+    "surface_container": { "light": "#fceae8", "dark": "#271d1d" },
+    "surface_container_high": { "light": "#f6e4e3", "dark": "#322827" },
+    "outline_variant": { "light": "#d7c1c0", "dark": "#534342" },
+    "on_surface": { "light": "#231919", "dark": "#f0dedd" },
+    "on_surface_variant": { "light": "#534342", "dark": "#d7c1c0" },
+    "outline": { "light": "#857372", "dark": "#a08c8b" },
+    "primary": { "light": "#904a48", "dark": "#ffb3b0" },
+    "on_primary": { "light": "#ffffff", "dark": "#571d1d" },
+    "primary_container": { "light": "#ffdad8", "dark": "#733332" },
+    "on_primary_container": { "light": "#3b080a", "dark": "#ffdad8" },
+    "error": { "light": "#ba1a1a", "dark": "#ffb4ab" },
+    "secondary_container": { "light": "#ffdad8", "dark": "#5d3f3e" }
+  }
+}

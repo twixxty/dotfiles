@@ -1,0 +1,18 @@
+{
+    "floating_sidebar": false,
+    "is_24hr_clock": false,
+    "lockscreen.always_reveal_input": true,
+    "lockscreen.notifications": 3,
+    "lockscreen.notifications_counter": true,
+    "hyprsunset.value": false,
+    "appearance.wallpaper": "$HOME/Pictures/Wallpapers/wallpaper.jpg",
+    "appearance.dark_mode": true,
+    "use_matugen": true,
+    "themes.gtk3": false,
+    "themes.gtk4": false,
+    "themes.kitty": false,
+    "themes.wezterm": false,
+    "themes.alacritty": false,
+    "themes.telegram": false,
+    "__version__": 1
+}

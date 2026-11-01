@@ -1,0 +1,222 @@
+# i3 config, ported from niri config.kdl
+# Save as ~/.config/i3/config
+#
+# niri's scrolling columns and overview have no i3 equivalent, those binds got
+# the closest i3 thing. Wayland-only tools were swapped for X11 ones:
+#   waybar -> i3bar (or polybar)      mako -> dunst
+#   hypridle/hyprlock -> xss-lock/i3lock
+#   swayosd -> pactl/brightnessctl    vicinae -> rofi
+#   wlogout -> i3-nagbar              hyprpicker -> xcolor
+#   awww/swaybg -> feh (through qs-bgselector)
+#
+# Packages: rofi dunst picom feh xss-lock i3lock maim xdotool xclip xcolor
+#           brightnessctl playerctl labwc sway-or-labwc (for the picker)
+
+set $mod Mod4
+
+font pango:JetBrains Mono 10
+floating_modifier $mod
+
+# ---- look ----------------------------------------------------------------
+default_border pixel 0
+default_floating_border pixel 0
+hide_edge_borders both
+focus_follows_mouse yes
+mouse_warping output
+
+# ---- startup -------------------------------------------------------------
+exec --no-startup-id /usr/bin/lxqt-policykit-agent
+exec --no-startup-id /usr/libexec/gvfsd
+exec --no-startup-id /usr/libexec/gvfsd-mtp
+exec --no-startup-id dunst
+exec --no-startup-id picom
+exec --no-startup-id ~/Scripts/battery.sh
+exec --no-startup-id fedora-update-notify.sh
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000
+exec --no-startup-id ~/.local/bin/qs-bgselector --restore
+exec_always --no-startup-id ~/.fehbg
+# input and display (niri's input/output/cursor blocks)
+exec_always --no-startup-id setxkbmap us
+exec_always --no-startup-id xset r rate 400 25
+exec_always --no-startup-id numlockx on
+exec_always --no-startup-id xsetroot -cursor_name left_ptr
+exec_always --no-startup-id sh -c 'printf "Xcursor.theme: Bibata-Modern-Classic\nXcursor.size: 24\n" | xrdb -merge'
+exec_always --no-startup-id xrandr --output eDP-1 --pos 1280x0
+exec_always --no-startup-id mkdir -p ~/Pictures/Screenshots
+
+# Touchpad (tap, flat accel, two-finger scroll, middle emulation) and mouse
+# (flat accel, natural scroll) can't be set from i3. Put this in
+# /etc/X11/xorg.conf.d/40-libinput.conf:
+#   Section "InputClass"
+#       Identifier "touchpad"
+#       MatchIsTouchpad "on"
+#       Driver "libinput"
+#       Option "Tapping" "on"
+#       Option "AccelProfile" "flat"
+#       Option "MiddleEmulation" "on"
+#   EndSection
+#   Section "InputClass"
+#       Identifier "mouse"
+#       MatchIsPointer "on"
+#       Driver "libinput"
+#       Option "AccelProfile" "flat"
+#       Option "NaturalScrolling" "on"
+#       Option "MiddleEmulation" "on"
+#   EndSection
+
+# ---- apps ----------------------------------------------------------------
+bindsym $mod+Return exec kitty
+bindsym $mod+Mod1+Return exec alacritty
+bindsym $mod+v exec vesktop
+bindsym $mod+b exec helium
+bindsym $mod+Mod1+b exec zen-browser
+bindsym $mod+e exec nautilus
+bindsym $mod+Mod1+e exec thunar
+bindsym Mod1+space exec rofi -show drun
+bindsym $mod+l exec i3lock -c 000000
+
+# Wallpaper picker: runs inside a nested labwc window (needs Quickshell, which is Wayland-only)
+bindsym $mod+w exec --no-startup-id ~/.local/bin/qs-bgselector-x11
+for_window [title="(?i)wlroots|labwc"] floating enable, fullscreen enable
+
+# color picker (hyprpicker -> xcolor, copies to clipboard)
+bindsym $mod+p exec --no-startup-id xcolor -s
+
+# ---- media keys ----------------------------------------------------------
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+
+# ---- screenshots ---------------------------------------------------------
+bindsym $mod+s exec --no-startup-id sh -c 'maim -s | xclip -selection clipboard -t image/png'
+bindsym $mod+Shift+s exec --no-startup-id sh -c 'maim "$HOME/Pictures/Screenshots/Screenshot from $(date "+%Y-%m-%d %H-%M-%S").png"'
+bindsym $mod+Ctrl+s exec --no-startup-id sh -c 'maim -i "$(xdotool getactivewindow)" "$HOME/Pictures/Screenshots/Screenshot from $(date "+%Y-%m-%d %H-%M-%S").png"'
+
+# ---- windows -------------------------------------------------------------
+bindsym $mod+q kill
+bindsym $mod+Shift+q exec i3-nagbar -t warning -m 'Exit i3?' -B 'Yes, exit' 'i3-msg exit'
+bindsym Ctrl+Mod1+Delete exit
+
+# focus (niri: column left/right, window up/down)
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+j move container to workspace next
+bindsym $mod+Shift+k move container to workspace prev
+
+# monitors
+bindsym $mod+Ctrl+Left focus output left
+bindsym $mod+Ctrl+Right focus output right
+bindsym $mod+Ctrl+Up focus output up
+bindsym $mod+Ctrl+Down focus output down
+bindsym $mod+Ctrl+h focus output left
+bindsym $mod+Ctrl+l focus output right
+bindsym $mod+Ctrl+k focus output up
+bindsym $mod+Ctrl+j focus output down
+
+bindsym $mod+Shift+Ctrl+Left move container to output left
+bindsym $mod+Shift+Ctrl+Right move container to output right
+bindsym $mod+Shift+Ctrl+Up move container to output up
+bindsym $mod+Shift+Ctrl+Down move container to output down
+bindsym $mod+Shift+Ctrl+h move container to output left
+bindsym $mod+Shift+Ctrl+l move container to output right
+bindsym $mod+Shift+Ctrl+k move container to output up
+bindsym $mod+Shift+Ctrl+j move container to output down
+
+# overview -> window switcher
+bindsym $mod+Escape exec rofi -show window
+
+# scroll wheel
+bindsym --whole-window $mod+button5 workspace next
+bindsym --whole-window $mod+button4 workspace prev
+bindsym --whole-window $mod+Shift+button5 move container to workspace next
+bindsym --whole-window $mod+Shift+button4 move container to workspace prev
+bindsym --whole-window $mod+button7 focus right
+bindsym --whole-window $mod+button6 focus left
+bindsym --whole-window $mod+Ctrl+button5 resize shrink height 5 px or 5 ppt
+bindsym --whole-window $mod+Ctrl+button4 resize grow height 5 px or 5 ppt
+
+# ---- workspaces ----------------------------------------------------------
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+
+bindsym $mod+Tab workspace back_and_forth
+
+# ---- layout --------------------------------------------------------------
+bindsym $mod+c move position center
+bindsym $mod+bracketleft resize shrink width 10 px or 10 ppt
+bindsym $mod+bracketright resize grow width 10 px or 10 ppt
+bindsym $mod+Shift+bracketleft resize shrink height 10 px or 10 ppt
+bindsym $mod+Shift+bracketright resize grow height 10 px or 10 ppt
+
+bindsym $mod+t floating toggle
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Mod1+f fullscreen toggle global
+
+# ---- window rules --------------------------------------------------------
+# i3 already floats dialog/utility/splash windows on its own.
+# Picture-in-picture
+for_window [class="(?i)zen" title="^Picture-in-Picture$"] floating enable
+for_window [class="(?i)firefox" title="^Picture-in-Picture$"] floating enable
+
+for_window [class="(?i)samaya"] floating enable
+
+# File dialogs and system dialogs
+for_window [window_role="GtkFileChooserDialog"] floating enable, move position center
+for_window [class="(?i)zenity"] floating enable
+for_window [title="(?i)^(open|save|select)\b"] floating enable
+for_window [title="(?i)authentication"] floating enable
+for_window [title="(?i)\b(properties|preferences|rename)\b"] floating enable
+for_window [title="Sign in - Google Accounts"] floating enable
+
+for_window [class="(?i)keepassxc" title="Auto-Type"] floating enable
+for_window [class="(?i)bitwarden" title="(?i)unlock"] floating enable
+for_window [class="(?i)nm-connection-editor"] floating enable
+for_window [class="(?i)blueman-manager"] floating enable
+for_window [class="(?i)pavucontrol"] floating enable
+for_window [class="(?i)steam" title="(Friends|Settings|Properties)"] floating enable
+
+# Inactive window opacity 0.9 (niri) is done in picom, not here:
+#   inactive-opacity = 0.9;   in ~/.config/picom/picom.conf
+
+# ---- bar -----------------------------------------------------------------
+
+
+# Environment variables from the niri config (QT_QPA_PLATFORM=wayland,
+# GDK_BACKEND, MOZ_ENABLE_WAYLAND, ...) are left out on purpose, they break
+# X11. Things you still want go in ~/.xprofile, e.g.:
+#   export QT_QPA_PLATFORMTHEME=gtk3

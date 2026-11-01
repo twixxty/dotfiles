@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# caffeinate control for Kendra / Hypridle
+
+is_idle_active() {
+    if pgrep -x hypridle >/dev/null 2>&1; then
+        if ps -o stat= -C hypridle | grep -q "T"; then
+            return 1 # stopped (caffeinated)
+        fi
+        return 0 # running normally (idle active)
+    fi
+    return 1 # not running (caffeinated)
+}
+
+case "${1:-status}" in
+    status)
+        if is_idle_active; then
+            echo "off"
+        else
+            echo "on"
+        fi
+        ;;
+    on)
+        pkill -x hypridle 2>/dev/null || true
+        ;;
+    off)
+        if pgrep -x hypridle >/dev/null 2>&1; then
+            pkill -CONT -x hypridle 2>/dev/null || true
+        else
+            setsid -f hypridle >/dev/null 2>&1
+        fi
+        ;;
+    toggle)
+        if is_idle_active; then
+            pkill -x hypridle 2>/dev/null || true
+        else
+            setsid -f hypridle >/dev/null 2>&1
+        fi
+        ;;
+    *)
+        echo "Usage: $0 {status|on|off|toggle}"
+        exit 1
+        ;;
+esac

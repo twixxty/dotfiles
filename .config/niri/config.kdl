@@ -1,0 +1,467 @@
+spawn-at-startup "/usr/bin/lxqt-policykit-agent"
+spawn-at-startup "awww-daemon"
+spawn-at-startup "qs-bgselector" "--restore"
+spawn-at-startup "waybar"
+spawn-at-startup "battery.sh"
+spawn-at-startup "vicinae" "server"
+spawn-at-startup "sunsetr"
+spawn-at-startup "hypridle"
+spawn-at-startup "swayosd-server"
+spawn-at-startup "fedora-update-notify.sh"
+// Optional auto-connect device at startup:
+// spawn-at-startup "bluetoothctl" "connect" "YOUR_DEVICE_MAC"
+prefer-no-csd
+
+
+
+overview {
+    zoom 0.4
+    workspace-shadow {
+        off
+    }
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+cursor {
+    xcursor-theme "Bibata-Modern-Classic"
+    xcursor-size 24
+}
+
+input {
+    keyboard {
+        xkb {
+            layout "us"       
+        }
+        numlock
+	    repeat-delay 400
+        repeat-rate 25
+        track-layout "global"         
+    }
+    
+    touchpad {
+        tap
+        accel-profile "flat"
+        scroll-method "two-finger"
+        middle-emulation
+        
+    }
+
+    mouse {
+        accel-profile "flat"
+        middle-emulation
+        natural-scroll
+    }
+
+    warp-mouse-to-focus mode="center-xy-always"
+
+    focus-follows-mouse max-scroll-amount="100%"
+}
+
+output "eDP-1" {
+    mode "1920x1080@59.997"
+    scale 1
+    transform "normal"
+    position x=0 y=0
+}
+
+layer-rule {
+    match namespace="^desktop$"
+    match namespace="^desktop-icons$"
+    place-within-backdrop true
+}
+
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+switch-events {
+    lid-close {spawn "hyprlock";}
+}
+
+layer-rule {
+    match namespace="^awww-daemon$"
+    place-within-backdrop true
+}
+
+binds {
+    // Shortcuts Panel
+    MOD+SHIFT+ESCAPE                    { show-hotkey-overlay; }
+Mod+Shift+Slash { show-hotkey-overlay; }
+    
+    // Application Shortcuts
+    MOD+V                               hotkey-overlay-title="Vesktop" { spawn-sh "vesktop"; }
+    MOD+RETURN                          hotkey-overlay-title="Open Terminal: kitty" { spawn-sh "kitty"; }
+    MOD+ALT+RETURN                      hotkey-overlay-title="Open Terminal: alacritty" { spawn-sh "alacritty"; }
+    MOD+ALT+B                         hotkey-overlay-title="Open Secondary Browser: zen" { spawn-sh "zen-browser"; }
+    // Control center: quick toggles, notification history, power/settings
+    MOD+N                               hotkey-overlay-title="Notification Center: suchana" { spawn-sh "vyom suchana"; }
+    MOD+SHIFT+N                         hotkey-overlay-title="Control Center: kendra" { spawn-sh "vyom kendra"; }
+    // Lock screen (HyprYou's own lock)
+    MOD+L                         hotkey-overlay-title="Lock Screen: hyprlock" { spawn-sh "hyprlock"; }
+    ALT+SPACE                               hotkey-overlay-title="Open App Launcher: vicinae" { spawn-sh "vicinae toggle"; }
+    ctrl+alt+delete { quit; }
+    MOD+B                               hotkey-overlay-title="Open Browser: helium" { spawn-sh "helium"; }
+    MOD+E                               hotkey-overlay-title="File Manager: nautilus" { spawn-sh "nautilus"; }
+    MOD+W                               hotkey-overlay-title="Open Wallpaper Selector" { spawn-sh "qs-bgselector"; }
+    MOD+SHIFT+W                               hotkey-overlay-title="Open Wallpaper Selector" { spawn-sh "$HOME/.config/scripts/bgselector.sh"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "raise"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "lower"; }
+    XF86AudioMute        allow-when-locked=true { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "swayosd-client" "--input-volume" "mute-toggle"; }
+    
+
+    // Example media keys mapping using playerctl.
+    // This will work with any MPRIS-enabled media player.
+    XF86AudioPlay        allow-when-locked=true { spawn "swayosd-client" "--playerctl" "play-pause"; }
+    XF86AudioPause       allow-when-locked=true { spawn "swayosd-client" "--playerctl" "play-pause"; }
+    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
+    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
+    XF86AudioNext        allow-when-locked=true { spawn "swayosd-client" "--playerctl" "next"; }
+
+    // Example brightness key mappings for brightnessctl.
+    // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
+    // but you need to manually put each argument in separate "" quotes.
+    XF86MonBrightnessUp allow-when-locked=true { spawn "swayosd-client" "--brightness" "raise"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "swayosd-client" "--brightness" "lower"; }
+
+    // Window Management
+    MOD+Q                               { close-window; }
+Mod+Shift+Q { spawn "wlogout"; }
+    
+    MOD+LEFT                            { focus-column-left; }
+    MOD+DOWN                            { focus-window-down; }
+    MOD+UP                              { focus-window-up; }
+    MOD+RIGHT                           { focus-column-right; }
+
+    // Move windows within workspace
+    MOD+SHIFT+LEFT                      { move-column-left; }
+    MOD+SHIFT+DOWN                      { move-window-down; }
+    MOD+SHIFT+UP                        { move-window-up; }
+    MOD+SHIFT+RIGHT                     { move-column-right; }
+
+    MOD+SHIFT+H                         { move-column-left; }
+    MOD+SHIFT+J                         { move-column-to-workspace-down; }
+    MOD+SHIFT+K                         { move-column-to-workspace-up; }
+    MOD+SHIFT+L                         { move-column-right; }
+
+    // Move to workspace edges
+    MOD+SHIFT+HOME                      { move-column-to-first; }
+    MOD+SHIFT+END                       { move-column-to-last; }
+
+    MOD+HOME                            { focus-column-first; }
+    MOD+END                             { focus-column-last; }
+
+    // Monitor Management - Move between monitors
+    MOD+CTRL+LEFT                       { focus-monitor-left; }
+    MOD+CTRL+RIGHT                      { focus-monitor-right; }
+    MOD+CTRL+UP                         { focus-monitor-up; }
+    MOD+CTRL+DOWN                       { focus-monitor-down; }
+
+    MOD+CTRL+H                          { focus-monitor-left; }
+    MOD+CTRL+L                          { focus-monitor-right; }
+    MOD+CTRL+K                          { focus-monitor-up; }
+    MOD+CTRL+J                          { focus-monitor-down; }
+
+    // Move windows to different monitors
+    MOD+SHIFT+CTRL+LEFT                 { move-column-to-monitor-left; }
+    MOD+SHIFT+CTRL+RIGHT                { move-column-to-monitor-right; }
+    MOD+SHIFT+CTRL+UP                   { move-column-to-monitor-up; }
+    MOD+SHIFT+CTRL+DOWN                 { move-column-to-monitor-down; }
+
+    MOD+SHIFT+CTRL+H                    { move-column-to-monitor-left; }
+    MOD+SHIFT+CTRL+L                    { move-column-to-monitor-right; }
+    MOD+SHIFT+CTRL+K                    { move-column-to-monitor-up; }
+    MOD+SHIFT+CTRL+J                    { move-column-to-monitor-down; }
+
+    // Workspace Management
+    MOD+ESCAPE                          hotkey-overlay-title="Open Overview" repeat=false { toggle-overview; }
+    MOD+WHEELSCROLLDOWN                 cooldown-ms=100 { focus-workspace-down; }
+    MOD+WHEELSCROLLUP                   cooldown-ms=100 { focus-workspace-up; }
+
+    // Move windows to different workspaces - using wheel matches K/J pattern
+    MOD+SHIFT+WHEELSCROLLDOWN           cooldown-ms=100 { move-column-to-workspace-down; }
+    MOD+SHIFT+WHEELSCROLLUP             cooldown-ms=100 { move-column-to-workspace-up; }
+
+    // Column navigation with mouse
+    MOD+WHEELSCROLLRIGHT                { focus-column-right; }
+    MOD+WHEELSCROLLLEFT                 { focus-column-left; }
+    MOD+CTRL+WHEELSCROLLRIGHT           { move-column-right; }
+    MOD+CTRL+WHEELSCROLLLEFT            { move-column-left; }
+
+    // Numbered Workspaces
+    MOD+1                               { focus-workspace 1; }
+    MOD+2                               { focus-workspace 2; }
+    MOD+3                               { focus-workspace 3; }
+    MOD+4                               { focus-workspace 4; }
+    MOD+5                               { focus-workspace 5; }
+    MOD+6                               { focus-workspace 6; }
+    MOD+7                               { focus-workspace 7; }
+    MOD+8                               { focus-workspace 8; }
+    MOD+9                               { focus-workspace 9; }
+
+    // Move windows to numbered workspaces with MOD+SHIFT
+    MOD+SHIFT+1                         { move-column-to-workspace 1; }
+    MOD+SHIFT+2                         { move-column-to-workspace 2; }
+    MOD+SHIFT+3                         { move-column-to-workspace 3; }
+    MOD+SHIFT+4                         { move-column-to-workspace 4; }
+    MOD+SHIFT+5                         { move-column-to-workspace 5; }
+    MOD+SHIFT+6                         { move-column-to-workspace 6; }
+    MOD+SHIFT+7                         { move-column-to-workspace 7; }
+    MOD+SHIFT+8                         { move-column-to-workspace 8; }
+    MOD+SHIFT+9                         { move-column-to-workspace 9; }
+
+    MOD+TAB                             { focus-workspace-previous; }
+
+    // Layout Controls
+    MOD+C                               { center-column; }
+    MOD+CTRL+C                          { center-visible-columns; }
+    MOD+BRACKETLEFT                     { set-column-width "-10%"; }
+    MOD+BRACKETRIGHT                    { set-column-width "+10%"; }
+    MOD+SHIFT+BRACKETLEFT               { set-window-height "-10%"; }
+    MOD+SHIFT+BRACKETRIGHT              { set-window-height "+10%"; }
+
+    // Window resizing with mouse
+    MOD+CTRL+WHEELSCROLLDOWN            { set-window-height "-5%"; }
+    MOD+CTRL+WHEELSCROLLUP              { set-window-height "+5%"; }
+
+    // Window Modes
+    MOD+T                               { toggle-window-floating; }
+    MOD+ALT+F                               { fullscreen-window; }
+    MOD+F                               { maximize-column; }
+    // MOD+W                               { toggle-column-tabbed-display; }
+
+    // Utils
+    MOD+S                               { screenshot; }
+    MOD+SHIFT+S                         { screenshot-screen write-to-disk=true; }
+    MOD+CTRL+S                          { screenshot-window write-to-disk=true; }
+    MOD+P                               { spawn-sh "pgrep -x hyprpicker >/dev/null || hyprpicker"; }
+
+    // Application Restarts
+    MOD+ALT+W                           { spawn "sh" "-c" "pgrep -x waybar >/dev/null && killall waybar || waybar &"; }
+    // use with toggle in waybar (doens't restart if not running)
+    // MOD+ALT+W                           { spawn "killall" "-SIGUSR1" "waybar"; }
+}
+
+// Layout Settings
+layout {
+    gaps 0
+    center-focused-column "on-overflow"
+    background-color "transparent"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    focus-ring {
+        width 0
+        active-color "#0B0F19"
+    }
+
+    insert-hint {
+        off
+        color "#0B0F19"
+    }
+
+    struts {}
+
+}
+
+// Animation Settings
+animations {
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=700 epsilon=0.0001
+    }
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=650 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=1.0 stiffness=650 epsilon=0.0001
+    }
+    window-resize {
+        spring damping-ratio=1.0 stiffness=700 epsilon=0.0001
+    }
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=700 epsilon=0.0001
+    }
+
+    window-open {
+        duration-ms 250
+        curve "ease-out-expo"
+    }
+    window-close {
+        duration-ms 200
+        curve "ease-out-cubic"
+    }
+    screenshot-ui-open {
+        duration-ms 250
+        curve "ease-out-quad"
+    }
+
+    config-notification-open-close {
+        spring damping-ratio=0.7 stiffness=1000 epsilon=0.001
+    }
+}
+// Window Rules
+// Application-specific rules
+
+// Helium / Chromium YouTube Music lyrics popout (Document PiP / Better Lyrics)
+window-rule {
+    match app-id=r#"^helium$"# title="YouTube Music"
+    match app-id=r#"^google-chrome(-stable)?$"# title="YouTube Music"
+    match app-id=r#"^chromium(-browser)?$"# title="YouTube Music"
+    match app-id=r#"^brave-browser$"# title="YouTube Music"
+    exclude title=r#" - (Helium|Google Chrome|Chromium|Brave)$"#
+    open-floating true
+    default-floating-position x=32 y=32 relative-to="bottom-right"
+}
+
+// Picture-in-Picture popouts across all browsers (Helium, Zen, Firefox, Chrome, etc.)
+window-rule {
+    match title=r#"^Picture[- ]in[- ][Pp]icture$"#
+    match title=r#"^Picture in picture$"#
+    match app-id=r#"^zen$"# title="^Picture-in-Picture$"
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+    default-floating-position x=32 y=32 relative-to="bottom-right"
+}
+
+// Maximize main app windows (excluding PiP popouts)
+window-rule {
+    match app-id=r#"firefox"#
+    match app-id=r#"google-chrome"#
+    match app-id=r#"code"#
+    match app-id=r#"obsidian$"#
+    exclude title=r#"^Picture[- ]in[- ][Pp]icture$"#
+    exclude title=r#"^Picture in picture$"#
+    open-maximized true
+}
+
+// File / Folder chooser dialogs and desktop portals
+window-rule {
+    match app-id=r#"org\.gtk\.FileChooserDialog"#
+    match app-id=r#"xdg-desktop-portal-.*"#
+    match app-id=r#"org\.gnome\.NautilusPreviewer"#
+    match title=r#"^(Open|Save|Select) (File|Files|Folder|Directory)?"#
+    match title=r#"^File (Upload|Chooser)$"#
+    match title=r#"^Choose Files?$"#
+    match title=r#"^Save As$"#
+    open-floating true
+    max-width 800
+    max-height 1000
+}
+
+// System dialogs and utilities
+window-rule {
+    match app-id=r#"zenity"#
+    match app-id=r#"nm-connection-editor"#
+    match app-id=r#"blueman-manager"#
+    match app-id=r#"pavucontrol"#
+    match app-id=r#"org\.gnome\.Calculator"#
+    match app-id=r#"org\.gnome\.clocks"#
+    match app-id=r#"^io\.github\.redddfoxxyy\.samaya$"#
+    open-floating true
+}
+
+window-rule {
+    match title=r#".*(Dialog|Properties|Preferences|Settings|Rename).*"#
+    exclude app-id=r#"^(firefox|helium|google-chrome|zen|chromium|code|obsidian)$"#
+    open-floating true
+}
+
+window-rule {
+    match title=r#".*Sign in - Google Accounts — Mozilla Firefox"#
+    open-floating true
+}
+
+// Authentication and password prompt dialogs
+window-rule {
+    match app-id=r#"org\.kde\.polkit-kde-authentication-agent-1"#
+    match app-id=r#"pinentry.*"#
+    match app-id=r#"gcr-prompter"#
+    match title=r#".*Authentication.*"#
+    open-floating true
+}
+
+// Password managers
+window-rule {
+    match app-id=r#"org\.keepassxc\.KeePassXC"# title=r#".*Auto-Type.*"#
+    match app-id=r#"Bitwarden"# title=r#".*unlock.*"#
+    open-floating true
+}
+
+// Steam dialogs
+window-rule {
+    match app-id=r#"steam"# title=r#".*(Friends|Settings|Properties).*"#
+    open-floating true
+}
+
+// Drop shadow for floating windows
+window-rule {
+    match is-floating=true
+    shadow {
+        on
+        softness 30
+        spread 4
+        offset x=0 y=4
+        draw-behind-window true
+        color "#00000080"
+    }
+}
+
+// Global window appearance
+window-rule {
+    geometry-corner-radius 0
+    clip-to-geometry true
+}
+
+// Inactive window transparency (tiled windows)
+window-rule {
+    match is-active=false
+    opacity 0.9
+}
+
+// Floating windows stay fully opaque when inactive
+window-rule {
+    match is-floating=true
+    opacity 1.0
+}
+
+// Environment Variables
+environment {
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    XDG_SESSION_TYPE "wayland"
+    XDG_CURRENT_DESKTOP "niri"
+
+    // Wayland Platform Settings
+    QT_QPA_PLATFORM "wayland;xcb"
+    QT_QPA_PLATFORMTHEME "gtk3"
+    QT_QPA_PLATFORMTHEME_QT6 "gtk3"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+    QT_AUTO_SCREEN_SCALE_FACTOR "1"
+
+    // GTK Settings
+    GDK_BACKEND "wayland,x11"
+
+    // Firefox Wayland & Hardware Acceleration
+    MOZ_ENABLE_WAYLAND "1"
+    MOZ_DBUS_REMOTE "1"
+
+    // Hardware Acceleration for AMD Vega 3 (radeonsi)
+    LIBVA_DRIVER_NAME "radeonsi"
+    VDPAU_DRIVER "radeonsi"
+    MESA_VK_WSI_PRESENT_MODE "mailbox"
+
+    // Java Applications
+    _JAVA_AWT_WM_NONREPARENTING "1"
+
+    // SDL Applications
+    SDL_VIDEODRIVER "wayland"
+
+    // CLUTTER Applications
+    CLUTTER_BACKEND "wayland"
+}
+

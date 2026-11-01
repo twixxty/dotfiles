@@ -1,0 +1,13 @@
+anchor=bottom-left
+margin=10
+outer-margin=0, 0, 10, 0
+border-radius=20
+background-color={{colors.background.default.hex}}
+text-color={{colors.on_background.default.hex}}
+border-color=#00000000
+progress-color=over {{colors.primary_container.default.hex}}
+default-timeout=10000
+layer=top
+
+[urgency=high]
+border-color={{colors.error.default.hex}}

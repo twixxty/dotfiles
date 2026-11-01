@@ -1,0 +1,23 @@
+{
+  "reload_style_on_change": true,
+  "toggle": true,
+  "layer": "overlay",
+  "position": "left",
+  "width": 56,
+  "margin-top": 0,
+  "margin-bottom": 0,
+  "margin-left": 0,
+  "margin-right": 0,
+  "spacing": 0,
+  "include": ["~/.config/waybar/modules.json"],
+
+  // top -> bottom
+"modules-left": ["custom/search", "group/music"],
+  "modules-center": ["niri/workspaces"],
+  "modules-right": [
+    "group/extras",
+    "group/status",
+    "clock",
+    "custom/notifications"
+  ]
+}

@@ -1,0 +1,67 @@
+@import "colors.css";
+
+* {
+	background-image: none;
+	box-shadow: none;
+}
+window {
+	background-color: alpha(@background, 0.8);
+}
+button {
+    border-radius: 10px;
+margin: 1px;
+	text-decoration-color: @accent;
+    color: @accent;
+    transition:background-color 0.25s ease;
+	background-color: @button_background;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 25%;
+}
+button:focus, button:active, button:hover {
+	background-color: @accent;
+	color: @on_accent;
+	text-decoration-color: @on_accent;
+	    transition:background-color 0;
+	    outline-style:none;
+}
+#lock {
+    background-image: image(url("icons/lock.png"));
+    border-radius:30px 10px 10px 10px;
+}
+#lock:hover, #lock:focus, #lock:active {
+    background-image: image(url("icons/hover/lock.png"));
+}
+#logout {
+    background-image: image(url("icons/logout.png"));
+}
+#logout:hover, #logout:focus, #logout:active {
+    background-image: image(url("icons/hover/logout.png"));
+}
+#suspend {
+    background-image: image(url("icons/suspend.png"));
+        border-radius:10px 30px 10px 10px;
+}
+#suspend:hover, #suspend:focus, #suspend:active {
+    background-image: image(url("icons/hover/suspend.png"));
+}
+#hibernate {
+    background-image: image(url("icons/hibernate.png"));
+        border-radius:10px 10px 10px 30px;
+}
+#hibernate:hover, #hibernate:focus, #hibernate:active {
+    background-image: image(url("icons/hover/hibernate.png"));
+}
+#shutdown {
+    background-image: image(url("icons/power.png"));
+}
+#shutdown:hover, #shutdown:focus, #shutdown:active {
+    background-image: image(url("icons/hover/power.png"));
+}
+#reboot {
+    background-image: image(url("icons/retsart.png"));
+        border-radius:10px 10px 30px 10px;
+}
+#reboot:hover, #reboot:focus, #reboot:active {
+    background-image: image(url("icons/hover/retsart.png"));
+}

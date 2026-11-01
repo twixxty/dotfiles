@@ -1,0 +1,149 @@
+[templates.qs-bgselector]
+input_path = '~/.config/qs-bgselector/colors.template'
+output_path = '~/.config/qs-bgselector/colors'
+
+[config.wallpaper]
+command = "awww"
+set = false
+
+[templates.waybar]
+input_path = './templates/colors.css'
+output_path = '~/.config/waybar/colors.css'
+
+
+[templates.hypryou]
+input_path = './templates/hypryou.scss'
+output_path = '~/.cache/hypryou/colors/colors.scss'
+post_hook = 'hypryouctl reload_css 2>/dev/null || true'
+
+[templates.gtk3]
+input_path = './templates/gtk-colors.css'
+output_path = '~/.config/gtk-3.0/colors.css'
+pre_hook = 'gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-Dark"'
+post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark"'
+
+[templates.gtk4]
+input_path = './templates/gtk-colors.css'
+output_path = '~/.config/gtk-4.0/colors.css'
+
+[templates.kvantum]
+input_path = './templates/kvantum-colors.kvconfig'
+output_path = '~/.config/Kvantum/matugen/matugen.kvconfig'
+
+[templates.kvantum_svg]
+input_path = './templates/kvantum-colors.svg'
+output_path = '~/.config/Kvantum/matugen/matugen.svg'
+post_hook = 'kvantummanager --set matugen'
+
+[templates.fuzzel]
+input_path = './templates/colors-fuzzel.ini'
+output_path = '~/.config/fuzzel/colors-fuzzel.ini'
+
+[templates.mako]
+input_path = './templates/colors-mako'
+output_path = '~/.config/mako/config'
+post_hook = 'makoctl reload'
+
+[templates.kitty]
+input_path = './templates/kitty.conf'
+output_path = '~/.config/kitty/colors.conf'
+# was pointed at kitty.conf itself, which overwrote your whole config
+# on every regen. Make sure kitty.conf has: include colors.conf
+
+[templates.wlogout]
+input_path = './templates/colors-wlogout.css'
+output_path = '~/.config/wlogout/colors.css'
+post_hook = '~/.config/wlogout/tint-icons.sh'
+
+[templates.vesktop]
+input_path = './templates/vesktop.css'
+output_path = '~/.config/vesktop/themes/midnight-discord.css'
+
+
+# ---- newly wired templates ----
+
+[templates.rofi]
+input_path = './templates/rofi.rasi'
+output_path = '~/.config/rofi/colors/matugen.rasi'
+# matches your old wallust destination folder/naming
+# (~/.config/rofi/colors/wallust.rasi) — if your rofi config
+# @imports "colors/wallust.rasi" by name, update that import to
+# "colors/matugen.rasi", or just keep output_path as wallust.rasi
+# to avoid touching your rofi config at all.
+
+[templates.alacritty]
+input_path = './templates/alacritty.toml'
+output_path = '~/.config/alacritty/colors.toml'
+# CONFIRM: your alacritty.toml needs, under [general]:
+#   import = ["~/.config/alacritty/colors.toml"]
+
+# VS Code matugen extension
+[templates.vscode-raw]
+input_path = './templates/vscode-colors'
+output_path = '~/.cache/matugen/vscode-colors'
+
+[templates.vscode-json]
+input_path = './templates/vscode-colors.json'
+output_path = '~/.cache/matugen/vscode-colors.json'
+
+[templates.vicinae]
+input_path = './templates/vicinae.toml'
+output_path = '~/.local/share/vicinae/themes/matugen.toml'
+post_hook = 'vicinae theme set matugen'
+# matches your old wallust destination dir (note: .local/share, not
+# .config). You'll need vicinae's own config set to use theme
+# "matugen" instead of "wallust".
+
+[templates.swayosd]
+input_path = '~/.config/matugen/templates/swayosd.css'
+output_path = '~/.config/swayosd/colors.css'
+post_hook = "sh -c 'if pgrep -x swayosd-server >/dev/null 2>&1; then pkill swayosd-server; setsid -f swayosd-server >/dev/null 2>&1; fi'"
+
+
+[templates.zen_chrome]
+input_path = './templates/zen-userChrome.css'
+output_path = '~/.zen/syapzee3.Default (release)/chrome/userChrome.css'
+# No post_hook: Zen only reads userChrome.css/userContent.css at
+# startup, so you'll need to restart Zen after each wallpaper change
+# to see the new colors (this is the "simple" mode — no live JS
+# bridge, so no hot reload).
+
+[templates.hyprlock]
+input_path = './templates/hyprlock.conf'
+output_path = '~/.config/hypr/hyprlock.conf'
+# No post_hook needed — hyprlock re-reads this file fresh every time
+# it's invoked to lock, so no reload signal is required.
+
+[templates.zen_content]
+input_path = './templates/zen-userContent.css'
+output_path = '~/.zen/syapzee3.Default (release)/chrome/userContent.css'
+
+[templates.vacuumtube]
+input_path = '~/.config/matugen/templates/vacuumtube.css'
+output_path = '~/.var/app/rocks.shy.VacuumTube/config/VacuumTube/userstyles/vacuumtube.css'
+
+[templates.lightdm_css]
+input_path = '~/.config/matugen/templates/lightdm-gtk.css'
+output_path = '~/.cache/matugen/lightdm/gtk.css'
+
+[templates.lightdm_conf]
+input_path = '~/.config/matugen/templates/lightdm-gtk-greeter.conf'
+output_path = '~/.cache/matugen/lightdm/lightdm-gtk-greeter.conf'
+post_hook = '~/.local/bin/matugen-lightdm-sync'
+
+[templates.picker_colors]
+input_path = "~/.config/matugen/templates/wallpaper.json"
+output_path = "/tmp/bgsel-colors.json"
+
+[templates.quickshell]
+input_path = './templates/colors-quickshell.qml'
+output_path = '~/.config/quickshell/Theme.qml'
+
+[templates.formalmusic]
+input_path = './templates/formalmusic.json'
+output_path = '~/.config/formalmusic/theme.json'
+
+[templates.vyom]
+input_path = '~/.config/matugen/templates/vyom.css'
+output_path = '~/.config/vyom/matugen.css'
+post_hook = 'vyom reload 2>/dev/null || true'

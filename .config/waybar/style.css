@@ -1,0 +1,262 @@
+@import "./colors.css";
+
+/* ── Material 3 Expressive tokens ─────────────────────────────
+ * colors.css (matugen) has no surface-container roles, so they're
+ * derived here and still follow the wallpaper palette.
+ */
+@define-color surface_container      mix(@background, @foreground, 0.05);
+@define-color surface_container_high mix(@background, @foreground, 0.10);
+@define-color on_primary             @background;
+
+* {
+  font-family: "JetBrainsMono Nerd Font Propo", "Material Symbols Rounded";
+  font-size: 15px;
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+window#waybar {
+  background: @background;
+}
+
+/* ── Shared pill shape ────────────────────────────────────────
+ * Bar is 56px wide; 8px side margins leave 40px wide pills.
+ */
+#custom-search,
+#music,
+#workspaces,
+#extras,
+#status,
+#clock,
+#custom-notifications {
+  margin: 3px 8px;
+  border-radius: 20px;
+  transition: background 250ms cubic-bezier(0.2, 0, 0, 1),
+              opacity 250ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* ── Search (filled, squircle) ───────────────────────────────── */
+#custom-search {
+  min-height: 40px;
+  margin-top: 8px;
+  padding: 0;
+  border-radius: 16px;
+  background: @color4;
+  color: @on_primary;
+  font-family: "Material Symbols Rounded";
+  font-size: 19px;
+}
+#custom-search:hover {
+  opacity: 0.85;
+}
+
+/* ── Music (tertiary container, rotated text) ────────────────── */
+/* No padding on the pill itself: when nothing is playing every child is
+ * hidden and the pill collapses to nothing instead of leaving a stub. */
+#music {
+  padding: 0;
+  background: @surface_container;
+  color: @color7;
+}
+#mpris.title {
+  padding: 14px 0 2px;
+  background: transparent;
+  color: @color7;
+}
+#mpris.title.paused {
+  color: @color8;
+}
+#image.cover {
+  min-width: 32px;
+  min-height: 32px;
+  margin: 6px 0;
+  padding: 0;
+}
+#image.cover.empty {
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hover controls: the drawer slides these out below the cover */
+#custom-prev,
+#custom-next,
+#mpris.btn {
+  min-width: 32px;
+  min-height: 32px;
+  margin: 0 0 4px;
+  padding: 0;
+  border-radius: 16px;
+  font-family: "Material Symbols Rounded";
+  font-size: 18px;
+  transition: background 250ms cubic-bezier(0.2, 0, 0, 1),
+              opacity 250ms cubic-bezier(0.2, 0, 0, 1);
+}
+#custom-prev,
+#custom-next {
+  background: transparent;
+  color: @color7;
+}
+#custom-prev:hover,
+#custom-next:hover {
+  background: alpha(@foreground, 0.12);
+}
+#mpris.btn {
+  background: @color4;
+  color: @on_primary;
+}
+#mpris.btn:hover {
+  opacity: 0.85;
+}
+
+/* ── Workspaces ──────────────────────────────────────────────── */
+#workspaces {
+  padding: 0px 4px;
+  
+}
+#workspaces button {
+  min-width: 10px;
+  min-height: 10px;
+  margin: 3px 11px;
+  padding: 0;
+  border-radius: 9999px;
+  background: alpha(@foreground, 0.3);
+  background-image: none;
+  color: transparent;
+  font-size: 0;
+  transition: all 150ms ease;
+}
+#workspaces button label {
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 0;
+}
+#workspaces button:hover {
+  background: alpha(@foreground, 0.5);
+}
+#workspaces button.active,
+#workspaces button.focused {
+  margin: 4px 10px;
+  min-width: 10px;
+  min-height: 34px;
+  border-radius: 9999px;
+  background: @color4;
+}
+
+/* ── Drawer: arrow + background apps ─────────────────────────── */
+#extras {
+  padding: 6px 0;
+  background: @surface_container;
+}
+#custom-menu {
+  padding: 4px 0;
+  color: @color7;
+  font-family: "Material Symbols Rounded";
+  font-size: 18px;
+}
+#extras:hover #custom-menu {
+  color: @color4;
+}
+#tray {
+  padding: 6px 0;
+}
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+
+/* ── Status group: wifi / bluetooth / battery ────────────────── */
+#status {
+  padding: 8px 0;
+  background: @surface_container;
+}
+#network,
+#bluetooth,
+#battery {
+  padding: 5px 0;
+  background: transparent;
+  color: @color7;
+}
+#status:hover {
+  opacity: 0.8;
+}
+
+#network.wifi {
+  color: @color4;
+}
+#network.ethernet {
+  color: @color2;
+}
+#network.disconnected {
+  color: @color8;
+}
+#network.disabled {
+  color: @color1;
+}
+
+#bluetooth.on {
+  color: @color5;
+}
+#bluetooth.connected {
+  color: @color4;
+}
+#bluetooth.off,
+#bluetooth.disabled {
+  color: @color8;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @color4;
+}
+#battery.critical:not(.charging) {
+  color: @color1;
+}
+
+/* ── Clock (secondary container) ─────────────────────────────── */
+#clock {
+  padding: 10px 0;
+  background: @surface_container;
+  color: @color7;
+  font-size: 13px;
+  font-weight: bold;
+}
+#clock:hover {
+  opacity: 0.85;
+}
+
+/* ── Notifications (tonal, squircle) ─────────────────────────── */
+#custom-notifications {
+  min-height: 40px;
+  margin-bottom: 8px;
+  padding: 0;
+  border-radius: 16px;
+  background: @surface_container;
+  color: @color7;
+  font-family: "Material Symbols Rounded";
+  font-size: 18px;
+}
+#custom-notifications:hover {
+  opacity: 0.85;
+}
+
+/* ── Tooltips ────────────────────────────────────────────────── */
+tooltip {
+  background: @surface_container_high;
+  border: none;
+  border-radius: 12px;
+}
+tooltip * {
+  font-family: "JetBrainsMono Nerd Font Propo";
+  margin: 2px;
+  background: transparent;
+  color: @foreground;
+}

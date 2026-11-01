@@ -1,0 +1,70 @@
+# ==============================================================================
+#  .gitignore for Dotfiles Repository
+#  Ensures zero sensitive data, browser tokens, databases, or bloat are tracked
+# ==============================================================================
+
+# Private credentials, auth tokens, and session keys
+*.db
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+*.cookie
+*cookies*
+*session*
+*sessionData*
+*history*
+*.key
+*.pem
+*.pfx
+*.cert
+*.dmp
+*.extra
+*.lock
+.bash_history
+.zsh_history
+.fish_variables
+fish_variables
+
+# Browser & Chat app private state and tokens
+net.imput.helium/
+BeeperTexts/
+mozilla/
+zen/**/sessionstore*
+zen/**/logins.json
+zen/**/key4.db
+zen/**/cert9.db
+zen/**/cookies.sqlite*
+zen/**/places.sqlite*
+zen/**/storage/
+vesktop/sessionData/
+vesktop/Code Cache/
+vesktop/Crashpad/
+vesktop/state.json
+vesktop/.updaterId
+
+# Temporary and backup files
+.cache/
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+env/
+venv/
+*.bak
+*.old
+*.swp
+*.swo
+*~
+*.zip
+*.tar.*
+* (Copy)*
+*.working_copy
+.DS_Store
+
+# Compiled binaries and object files
+*.bin
+*.elf
+*.so
+*.o
+*.a

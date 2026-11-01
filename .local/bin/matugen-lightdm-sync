@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+wall="${1:-$HOME/.cache/current-wallpaper}"
+out=~/.cache/matugen/lightdm/wall.png
+IM=$(command -v magick || command -v convert)
+
+# first frame only, flatten alpha, blur, then darken by blending 40% toward black
+"$IM" "${wall}[0]" -background black -alpha remove -alpha off \
+  -colorspace sRGB -resize '2560x1440>' -blur 0x20 \
+  -fill black -colorize 40% "$out"
+
+sudo /usr/local/bin/matugen-lightdm-install

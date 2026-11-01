@@ -1,0 +1,8 @@
+autoplay_radio = true
+
+[replay_gain]
+fallback_gain_db = 0.0
+mode = "Auto"
+normalize_loudness = true
+preamp_db = 0.0
+prevent_clipping = true

@@ -1,0 +1,418 @@
+/* =============================================================================
+   Mako-Unified Palette & Design System
+   ============================================================================= */
+@import "matugen.css";
+
+/* Map Vyom tokens to Matugen Material You roles */
+@define-color base       @surface;
+@define-color mantle     @surface_container;
+@define-color crust      @surface_container_lowest;
+@define-color surface0   @surface_container_high;
+@define-color surface1   @surface_container_highest;
+@define-color text       @on_surface;
+@define-color subtext0   @on_surface_variant;
+@define-color subtext1   @outline;
+@define-color overlay0   @outline;
+@define-color overlay1   @outline_variant;
+
+/* Primary Accent */
+@define-color accent     @primary;
+@define-color on_accent  @on_primary;
+
+/* Tool & Badge Accent Colors */
+@define-color teal       @primary;
+@define-color sky        @tertiary;
+@define-color blue       @tertiary_container;
+@define-color mauve      @primary;
+@define-color green      @secondary;
+@define-color yellow     @primary_container;
+@define-color peach      @secondary_container;
+@define-color red        @error;
+@define-color pink       @tertiary;
+@define-color rosewater  @on_surface_variant;
+@define-color lavender   @secondary_fixed;
+
+/* =============================================================================
+   Strict 0 Border Radius, Lowercase Text & Universal Font (Matching Mako)
+   ============================================================================= */
+* {
+
+  font-family: "Google Sans";
+
+}
+
+
+
+label,
+button,
+entry,
+text,
+.query,
+text.query,
+.mode,
+.mode-title,
+.qs-title,
+.qs-sub,
+.qs-hello,
+.qs-meta,
+.qs-value,
+.p-title,
+.p-meta,
+.p-body,
+.p-mono,
+.preview-pane,
+row {
+  text-transform: lowercase;
+}
+
+/* =============================================================================
+   Main Window / Panel Shell (Identical to Mako: 2px border, solid #0e1513 bg)
+   ============================================================================= */
+window.vyom {
+  background: transparent;
+}
+
+.vyom-panel {
+  border: none;
+  border-radius: 20px;
+  background-color: @surface;
+  color: @on_surface;
+  font-size: 13px;
+  box-shadow: none;
+}
+
+.glyph,
+.qs-icon,
+.qs-more,
+button.qs-round,
+button.qs-slider-icon {
+  font-family: "JetBrainsMono Nerd Font";
+  text-transform: none;
+}
+
+/* =============================================================================
+   Control Center (Kendra) — Unified with Mako
+   ============================================================================= */
+.plugin-kendra .qs {
+  padding: 16px;
+}
+
+.qs-header {
+  margin-bottom: 10px;
+}
+
+/* Header Avatar: Sharp square profile image */
+.qs-avatar {
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 100%;
+  background-color: @surface_container;
+  box-shadow: none;
+}
+
+.qs-hello {
+  font-weight: 700;
+  font-size: 13px;
+  color: @primary;
+}
+
+.qs-meta {
+  font-size: 11px;
+  color: @on_surface_variant;
+}
+
+/* Header action buttons (Lock & Power) */
+button.qs-round {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  background: @surface_container;
+  border: 1px solid @outline_variant;
+  color: @on_surface;
+  box-shadow: none;
+}
+
+button.qs-round:hover,
+button.qs-round:focus-visible {
+  background: @primary;
+  color: @on_primary;
+  border-color: @primary;
+}
+
+button.qs-round.power {
+  color: @error;
+}
+
+button.qs-round.power:hover {
+  background: @error;
+  color: @on_error;
+  border-color: @error;
+}
+
+/* Inactive Quick Settings Tiles */
+button.qs-tile {
+  background: transparent;
+  border: 0;
+  color: @on_surface;
+  box-shadow: none;
+  padding: 10px 12px;
+  min-height: 42px;
+}
+
+button.qs-tile:hover {
+  background: @surface_container_high;
+  border-color: @primary;
+  transition: background 0s ease;
+}
+
+button.qs-tile:focus-visible {
+  outline: 2px solid @primary;
+  outline-offset: 1px;
+}
+
+button.qs-tile .qs-icon {
+  color: @primary;
+  font-size: 17px;
+}
+
+button.qs-tile .qs-title {
+  color: @on_surface;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+button.qs-tile .qs-sub {
+  color: @on_surface_variant;
+  font-size: 11px;
+}
+
+button.qs-tile .qs-more {
+  color: @outline;
+}
+
+/* Active Quick Settings Tiles: Solid background with dark text */
+button.qs-tile.on,
+button.qs-tile.on.q-sky,
+button.qs-tile.on.q-blue,
+button.qs-tile.on.q-teal,
+button.qs-tile.on.q-red,
+button.qs-tile.on.q-peach,
+button.qs-tile.on.q-mauve,
+button.qs-tile.on.q-yellow,
+button.qs-tile.on.q-green {
+  background: @primary;
+  border: 0;
+  color: @on_primary;
+}
+
+button.qs-tile.on:hover,
+button.qs-tile.on.q-sky:hover,
+button.qs-tile.on.q-blue:hover,
+button.qs-tile.on.q-teal:hover,
+button.qs-tile.on.q-red:hover,
+button.qs-tile.on.q-peach:hover,
+button.qs-tile.on.q-mauve:hover,
+button.qs-tile.on.q-yellow:hover,
+button.qs-tile.on.q-green:hover {
+  background: @primary_fixed_dim;
+  border-color: @primary_fixed_dim;
+}
+
+button.qs-tile.on .qs-title,
+button.qs-tile.on .qs-sub,
+button.qs-tile.on .qs-icon,
+button.qs-tile.on .qs-more,
+button.qs-tile.on.q-sky .qs-icon,
+button.qs-tile.on.q-blue .qs-icon,
+button.qs-tile.on.q-teal .qs-icon,
+button.qs-tile.on.q-red .qs-icon,
+button.qs-tile.on.q-peach .qs-icon,
+button.qs-tile.on.q-mauve .qs-icon,
+button.qs-tile.on.q-yellow .qs-icon,
+button.qs-tile.on.q-green .qs-icon {
+  color: @on_primary;
+}
+
+/* Sliders (Volume & Brightness) */
+.qs-sliders {
+  margin-top: 14px;
+}
+
+button.qs-slider-icon {
+  color: @on_surface;
+  min-width: 28px;
+  min-height: 28px;
+  border: none;
+  background: none;
+}
+
+button.qs-slider-icon:hover {
+  background: @surface_container_high;
+  color: @primary;
+}
+
+.qs-slider scale,
+.qs-slider scale trough,
+.qs-slider scale highlight,
+.qs-slider scale slider,
+scale,
+scale trough,
+scale highlight,
+scale slider {
+  min-height:25px;
+  box-shadow: none;
+  border-radius:99px;
+  outline: none;
+}
+
+.qs-slider scale trough {
+  background-color: @surface_container_highest;
+  min-height: 6px;
+  border: none;
+  box-shadow: none;
+}
+
+.qs-slider scale highlight {
+  background-color: @primary;
+  border: none;
+  box-shadow: none;
+}
+
+.qs-slider.brightness scale highlight {
+  background-color: @primary;
+  border: none;
+  box-shadow: none;
+}
+
+scale slider,
+.qs-slider scale slider {
+  opacity:0;
+}
+
+scale slider:hover,
+scale slider:focus,
+scale slider:focus-visible,
+.qs-slider scale slider:hover,
+.qs-slider scale slider:focus,
+.qs-slider scale slider:focus-visible,
+.qs-slider scale:focus,
+.qs-slider scale:focus-visible {
+  box-shadow: none;
+  outline: none;
+}
+
+.qs-value {
+  color: @on_surface_variant;
+  font-size: 11px;
+}
+
+/* =============================================================================
+   Notification Center (Suchana) & Search Panels
+   ============================================================================= */
+.topbar {
+  padding: 12px 14px;
+  border-bottom: none;
+  background-color: @surface_container_low;
+  border-radius: 20px 20px 0 0;
+}
+.qs-header {
+  margin-bottom: 10px;
+}
+.mode {
+  padding: 4px 10px;
+  font-weight: 700;
+  font-size: 12px;
+  background-color: @primary;
+  color: @on_primary;
+}
+
+text.query, .query {
+  font-size: 14px;
+  color: @on_surface;
+  caret-color: @primary;
+  padding: 4px 6px;
+}
+
+.query placeholder, text.query placeholder {
+  color: @outline;
+}
+
+/* List items / notifications in history */
+row {
+  padding: 8px 12px;
+  border-bottom: 1px solid alpha(@outline_variant, 0.4);
+}
+
+row:selected, row:hover {
+  background-color: @surface_container_high;
+  color: @on_surface;
+}
+
+/* Notification Preview pane */
+.preview {
+  border-left: 1px solid @outline_variant;
+  border-radius: 0 0 20px 0;
+}
+
+.plugin-suchana .preview-pane {
+  background-color: @surface_container_low;
+  border: 1px solid @outline_variant;
+  padding: 14px;
+}
+
+/* DND Switch */
+switch {
+  background-color: @surface_container_highest;
+  border: 1px solid @outline_variant;
+  border-radius:999px;
+}
+
+switch:checked {
+  background-color: @primary;
+  border-color: @primary;
+}
+
+switch slider {
+  background-color: @outline;
+    border-radius:999px;
+}
+
+switch:checked slider {
+  background-color: @on_primary;
+  transform: scale(1.3);
+}
+
+/* =============================================================================
+   Completely Remove Hints from Bottom
+   ============================================================================= */
+.foot,
+.qs-foot {
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+/* =============================================================================
+   Suchana Clear All Button & Backdrop
+   ============================================================================= */
+.vyom-backdrop {
+  background: transparent;
+}
+
+button.suchana-clear-btn {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background-color: @surface_container_high;
+  color: @on_surface;
+  border: none;
+  font-size: 11px;
+  font-weight: 500;
+  box-shadow: none;
+}
+
+button.suchana-clear-btn:hover {
+  background-color: @error;
+  color: @on_error;
+}
+

@@ -1,0 +1,42 @@
+# ~/.config/vyom/config.toml
+# Vyom Configuration
+
+[vyom]
+opacity = 1
+css = ["~/.config/vyom/matugen.css"]
+
+[plugin.kendra]
+anchor = ["bottom", "left"]
+margin_bottom = 10
+margin_left = 10
+avatar = "~/.config/assets/avatar.jpg"
+lock = "hyprlock"
+power = "wlogout"
+volume_cmd = "pavucontrol -t 4"
+tiles = ["wifi", "bluetooth", "dnd", "caffeine"]
+
+[plugin.kendra.tile.wifi]
+open = "~/.config/rofi/scripts/rofi-wifi-menu.sh"
+
+[plugin.kendra.tile.bluetooth]
+open = "~/.config/rofi/scripts/rofi-bluetooth"
+
+[plugin.kendra.tile.caffeine]
+title = "caffeine"
+icon = "󰅶"
+color = "peach"
+status = "caffeinate status"
+on_when = "^on$"
+on = "caffeinate on"
+off = "caffeinate off"
+subtitle_on = "awake"
+subtitle_off = "normal"
+
+[plugin.suchana]
+anchor = ["bottom", "left"]
+margin_bottom = 10
+margin_left = 10
+dnd_status = "makoctl mode"
+dnd_on_when = "do-not-disturb"
+dnd_on = "makoctl mode -a do-not-disturb"
+dnd_off = "makoctl mode -r do-not-disturb"

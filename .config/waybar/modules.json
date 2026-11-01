@@ -1,0 +1,184 @@
+{
+  "custom/search": {
+    "format": "<span font_family='Material Symbols Rounded'></span>",
+    "tooltip": false,
+    "on-click": "vicinae toggle"
+  },
+  "group/music": {
+    "orientation": "inherit",
+    "modules": [
+      "mpris#title",
+      "group/controls"
+    ]
+  },
+  "group/controls": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "controls-extra",
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "image#cover",
+      "custom/prev",
+      "mpris#btn",
+      "custom/next"
+    ]
+  },
+  "image#cover": {
+    "exec": "$HOME/.config/waybar/scripts/circle-art.py",
+    "size": 32,
+    "interval": 1,
+    "tooltip": false,
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous"
+  },
+  "mpris#title": {
+    "format": "{title}",
+    "format-stopped": "",
+    "status-icons": {
+      "playing": "",
+      "paused": "",
+      "default": ""
+    },
+    "title-len": 18,
+    "rotate": 90,
+    "tooltip": true,
+    "tooltip-format": "{title}\n{artist}",
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous"
+  },
+  "mpris#btn": {
+    "format": "<span font_family='Material Symbols Rounded'>{status_icon}</span>",
+    "format-stopped": "",
+    "status-icons": {
+      "playing": "",
+      "paused": "",
+      "default": ""
+    },
+    "tooltip": false,
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous"
+  },
+  "custom/prev": {
+    "format": "<span font_family='Material Symbols Rounded'></span>",
+    "tooltip": false,
+    "on-click": "playerctl previous"
+  },
+  "custom/next": {
+    "format": "<span font_family='Material Symbols Rounded'></span>",
+    "tooltip": false,
+    "on-click": "playerctl next"
+  },
+  "niri/workspaces": {
+    "on-click": "activate",
+    "format": ""
+  },
+  "group/extras": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 400,
+      "children-class": "extras",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/menu",
+      "tray"
+    ]
+  },
+  "custom/menu": {
+    "format": "<span font_family='Material Symbols Rounded'></span>",
+    "tooltip": false
+  },
+  "tray": {
+    "spacing": 12,
+    "reverse-direction": true,
+    "icon-size": 18,
+    "show-passive-items": false
+  },
+  "group/status": {
+    "orientation": "inherit",
+    "modules": [
+      "network",
+      "bluetooth",
+      "battery"
+    ]
+  },
+  "network": {
+    "format-icons": {
+      "wifi": [
+        "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+        "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+        "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+        "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+        "<span font_family='Material Symbols Rounded' size='13pt'></span>"
+      ],
+      "ethernet": "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+      "disabled": "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+      "disconnected": "<span font_family='Material Symbols Rounded' size='13pt'></span>"
+    },
+    "format-wifi": "{icon}",
+    "format-ethernet": "{icon}",
+    "format-disconnected": "{icon}",
+    "format-disabled": "{icon}",
+    "interval": 5,
+    "tooltip": true,
+    "tooltip-format": "{essid}\t{gwaddr}",
+    "on-click": "vyom kendra",
+    "on-click-right": "$HOME/.config/rofi/scripts/rofi-wifi-menu.sh"
+  },
+  "bluetooth": {
+    "interval": 5,
+    "format-on": "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+    "format-off": "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+    "format-disabled": "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+    "format-connected": "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+    "format-no-controller": "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+    "tooltip": true,
+    "tooltip-format": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_address} | Battery: {device_battery_percentage}%",
+    "on-click": "vyom kendra",
+    "on-click-right": "$HOME/.config/rofi/scripts/rofi-bluetooth",
+    "on-click-middle": "bluetoothctl info"
+  },
+  "battery": {
+    "interval": 5,
+    "states": {
+      "critical": 10
+    },
+    "format": "{icon}",
+    "format-icons": [
+      "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+      "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+      "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+      "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+      "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+      "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+      "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+      "<span font_family='Material Symbols Rounded' size='13pt'></span>"
+    ],
+    "format-charging": "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+    "format-plugged": "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+    "format-critical": "<span font_family='Material Symbols Rounded' size='13pt'></span>",
+    "tooltip": true,
+    "tooltip-format": "Charge: {capacity}%",
+    "tooltip-format-charging": "Charging: {capacity}%",
+    "on-click": "vyom kendra"
+  },
+  "clock": {
+    "interval": 30,
+    "justify": "center",
+    "format": "{:%I\n%M\n%p}",
+    "format-alt": "{:%d\n%m\n%y}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+  },
+  "custom/notifications": {
+    "format": "<span font_family='Material Symbols Rounded'></span>",
+    "tooltip": false,
+    "on-click": "vyom suchana"
+  }
+}
