@@ -31,7 +31,7 @@ exec --no-startup-id /usr/libexec/gvfsd-mtp
 exec --no-startup-id dunst
 exec --no-startup-id picom
 exec --no-startup-id ~/Scripts/battery.sh
-exec --no-startup-id fedora-update-notify.sh
+# exec --no-startup-id fedora-update-notify.sh
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000
 exec --no-startup-id ~/.local/bin/qs-bgselector --restore
 exec_always --no-startup-id ~/.fehbg
@@ -76,7 +76,7 @@ bindsym Mod1+space exec rofi -show drun
 bindsym $mod+l exec i3lock -c 000000
 
 # Wallpaper picker: runs inside a nested labwc window (needs Quickshell, which is Wayland-only)
-bindsym $mod+w exec --no-startup-id ~/.local/bin/qs-bgselector-x11
+bindsym $mod+w exec --no-startup-id ~/.local/bin/qs-bgselector
 for_window [title="(?i)wlroots|labwc"] floating enable, fullscreen enable
 
 # color picker (hyprpicker -> xcolor, copies to clipboard)
